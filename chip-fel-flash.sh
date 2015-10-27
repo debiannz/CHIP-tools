@@ -78,8 +78,8 @@ prepare_uboot_script() {
 	echo "nand write.raw $SPL_MEM_ADDR 0x400000 $PADDED_SPL_SIZE" >> "${UBOOT_SCRIPT_SRC}"
 	echo "sunxi_nand config default" >> "${UBOOT_SCRIPT_SRC}"
 	echo "nand write $UBOOT_MEM_ADDR 0x800000 $PADDED_UBOOT_SIZE" >> "${UBOOT_SCRIPT_SRC}"
-	echo "setenv bootargs root=ubi0:rootfs rootfstype=ubifs rw earlyprintk ubi.mtd=4" >> "${UBOOT_SCRIPT_SRC}"
-	echo "setenv bootcmd 'source \${scriptaddr}; nand slc-mode on; mtdparts; ubi part UBI; ubifsmount ubi0:rootfs; ubifsload \$fdt_addr_r /boot/sun5i-r8-chip.dtb; ubifsload \$kernel_addr_r /boot/zImage; bootz \$kernel_addr_r - \$fdt_addr_r'" >> "${UBOOT_SCRIPT_SRC}"
+	echo "setenv bootargs root=ubi0:chip-rootfs rootfstype=ubifs rw earlyprintk ubi.mtd=4" >> "${UBOOT_SCRIPT_SRC}"
+	echo "setenv bootcmd 'source \${scriptaddr}; nand slc-mode on; mtdparts; ubi part UBI; ubifsmount ubi0:chip-rootfs; ubifsload \$fdt_addr_r /boot/sun5i-r8-chip.dtb; ubifsload \$kernel_addr_r /boot/zImage; bootz \$kernel_addr_r - \$fdt_addr_r'" >> "${UBOOT_SCRIPT_SRC}"
 	echo "saveenv" >> "${UBOOT_SCRIPT_SRC}"
 
   if [[ "${METHOD}" == "fel" ]]; then
